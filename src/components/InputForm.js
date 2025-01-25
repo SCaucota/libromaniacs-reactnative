@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
-import { TextInput } from 'react-native-web'
 
 const InputForm = ({label, value, onChangeText, isSecure, error}) => {
   return (

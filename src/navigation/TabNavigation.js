@@ -4,6 +4,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import TabBarIcon from '../components/TabBarIcon'
 import ShopStack from './ShopStack'
 import Home from '../screens/Home'
+import Profile from '../screens/Profile'
+import ProfileStack from './ProfileStack'
 
 const Tab = createBottomTabNavigator();
 
@@ -35,7 +37,15 @@ const TabNavigation = () => {
                     )
                 }}
             />
-            
+            <Tab.Screen 
+                name="ProfileStack" 
+                component={ProfileStack}
+                options={{
+                    tabBarIcon: ({focused}) => (
+                        <TabBarIcon text="Perfil" icon="user" focused={focused}/>
+                    )
+                }}
+            />
         </Tab.Navigator>
     )
 }

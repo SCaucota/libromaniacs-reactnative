@@ -4,12 +4,14 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     email: '',
-    idToken: ''
+    idToken: '',
+    localId: ''
   },
   reducers: {
     setUser: (state, action) => { 
-      state.email = action.payload.email;
-      state.idToken = action.payload.idToken;
+      state.email = action.payload.email
+      state.idToken = action.payload.idToken
+      state.localId = action.payload.localId
     }
   }
 });
