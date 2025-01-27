@@ -9,8 +9,8 @@ import { setUser } from '../features/userSlice';
 
 const Login = () => {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("lola@gmail.com");
+    const [password, setPassword] = useState("Lolita12");
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("")
     const [trigger] = useLoginMutation()

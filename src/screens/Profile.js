@@ -10,7 +10,6 @@ const Profile = () => {
     const navigation = useNavigation();
     const localId = useSelector(state => state.user.localId);
     const {data:user} = useGetUserQuery({localId})
-
   return (
     <View>
         <Image
@@ -18,7 +17,15 @@ const Profile = () => {
             resizeMode='cover'
             style={styles.image}
         />
+        {
+            user?.address ? 
+            <View>
+                <Text>{user.address}</Text>
+            </View>
+            : <View></View>
+        }
         <SubmitButton title={'Agregar imagen de perfil'} onPress={() => navigation.navigate('ImageSelector')}/>
+        <SubmitButton title={'Agregar la localización'} onPress={() => navigation.navigate('LocationSelector')}/>
     </View>
   )
 }

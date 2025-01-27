@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import Profile from '../screens/Profile'
 import ImageSeclector from '../screens/ImageSeclector'
+import LocationSelector from '../screens/LocationSelector'
 
 const ProfileStack = () => {
 
@@ -12,6 +13,7 @@ const ProfileStack = () => {
     <Stack.Navigator>
         <Stack.Screen name='Profile' component={Profile}/>
         <Stack.Screen name='ImageSelector' component={ImageSeclector} />
+        <Stack.Screen name='LocationSelector' component={LocationSelector} />
     </Stack.Navigator>
   )
 }

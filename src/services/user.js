@@ -3,7 +3,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 
 export const userApi = createApi({
     reducerPath:'userApi',
-    tagTypes:['updateImageProfile'],
+    tagTypes:['updateImageProfile', 'updateLocationProfile'],
     baseQuery:fetchBaseQuery({baseUrl:base_url}),
     endpoints:(builder) => ({
         patchImageProfile:builder.mutation({
@@ -14,11 +14,19 @@ export const userApi = createApi({
             }),
             invalidatesTags:['updateImageProfile']
         }),
+        patchLocation:builder.mutation({
+            query:({localId, address,location}) => ({
+                url:`users/${localId}.json`,
+                method:'PATCH',
+                body:{address, location}
+            }),
+            invalidatesTags:['updateLocationProfile']
+        }),
         getUser:builder.query({
             query: ({localId}) => `users/${localId}.json`,
-            providesTags:['updateImageProfile']
+            providesTags:['updateImageProfile', 'updateLocationProfile']
         })
     })
 })
 
-export const { usePatchImageProfileMutation, useGetUserQuery } = userApi
+export const { usePatchImageProfileMutation, useGetUserQuery, usePatchLocationMutation } = userApi
