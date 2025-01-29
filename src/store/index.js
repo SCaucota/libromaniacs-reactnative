@@ -5,6 +5,7 @@ import { authApi } from '../services/auth'
 import userReducer  from '../features/userSlice';
 import { userApi } from "../services/user";
 import { cartApi } from "../services/cart";
+import { ordersApi } from "../services/orders";
 
 export const store = configureStore({
     reducer: {
@@ -12,10 +13,17 @@ export const store = configureStore({
         [shopApi.reducerPath]:shopApi.reducer,
         [authApi.reducerPath]:authApi.reducer,
         [userApi.reducerPath]:userApi.reducer,
-        [cartApi.reducerPath]:cartApi.reducer
+        [cartApi.reducerPath]:cartApi.reducer,
+        [ordersApi.reducerPath]:ordersApi.reducer
     },
     middleware: (getDefaultMiddleware) => 
-        getDefaultMiddleware().concat(shopApi.middleware, authApi.middleware, userApi.middleware, cartApi.middleware)
+        getDefaultMiddleware().concat(
+            shopApi.middleware, 
+            authApi.middleware, 
+            userApi.middleware, 
+            cartApi.middleware, 
+            ordersApi.middleware
+        )
 })
 
 setupListeners(store.dispatch)

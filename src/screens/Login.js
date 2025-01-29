@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, ActivityIndicator  } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import InputForm from '../components/InputForm';
 import SubmitButton from '../components/SubmitButton';
@@ -7,6 +7,7 @@ import { useLoginMutation } from '../services/auth';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../features/userSlice';
 import { deleteSesion, insertSession } from '../config/dbSQL';
+import Spinner from '../components/Spinner';
 
 const Login = () => {
 
@@ -68,7 +69,7 @@ const Login = () => {
             error={passwordError}
         />
         {loading ? (
-              <ActivityIndicator size="large" color="#0000ff" />
+              <Spinner/>
           ) : (
               <SubmitButton onPress={onSubmit} title="Ingresar" />
           )}
