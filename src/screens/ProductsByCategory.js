@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useGetProductsByCategoryQuery } from '../services/shop'
-import { FlatList } from 'react-native-web'
 import CardProduct from '../components/CardProduct'
 
 const ProductsByCategory = ({route}) => {
@@ -23,7 +22,7 @@ const ProductsByCategory = ({route}) => {
         }
     },[keyword,isSuccess])
 
-    if(isLoading) return <View><Text>cargando</Text></View>
+    if(isLoading) return <View><Text>Cargando...</Text></View>
     if(isError) return <View><Text>{error.message}</Text></View>
 
   return (

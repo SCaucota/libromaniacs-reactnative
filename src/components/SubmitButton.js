@@ -3,9 +3,9 @@ import React from 'react'
 
 const SubmitButton = ({title, onPress}) => {
   return (
-    <View>
-      <Pressable onPress={onPress}>
-        <Text>{title}</Text>
+    <View >
+      <Pressable style={styles.btn} onPress={onPress}>
+        <Text style={styles.btnText}>{title}</Text>
       </Pressable>
     </View>
   )
@@ -13,4 +13,11 @@ const SubmitButton = ({title, onPress}) => {
 
 export default SubmitButton
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  btn:{
+    backgroundColor: 'black',
+  },
+  btnText:{
+    color: 'white'
+  }
+})

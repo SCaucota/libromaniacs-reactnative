@@ -12,16 +12,24 @@ export const cartApi = createApi({
         }),
         postCart:builder.mutation({
             query:({localId, cartProduct}) => ({
-                url:`carts/${localId}.json`,
-                method: 'POST',
+                url:`carts/${localId}/${cartProduct.id}.json`,
+                method: 'PUT',
                 body:cartProduct
             }),
             invalidatesTags:['addProduct']
-        })
+        }),
+        deleteProductCart:builder.mutation({
+            query:({localId, productId}) => ({
+                url:`carts/${localId}/${productId}.json`,
+                method: 'DELETE',
+            })
+        }
+        )
     }),
 })
 
 export const {
     useGetCartQuery,
-    usePostCartMutation
+    usePostCartMutation,
+    useDeleteProductCartMutation
 } = cartApi

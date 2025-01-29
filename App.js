@@ -6,6 +6,14 @@ import {store} from './src/store/index';
 import Login from './src/screens/Login';
 
 export default function App() {
+
+  /* (
+    async ()=> {
+      const response = await init()
+      console.log(response)
+    }
+  )() */
+
   return (
     <>
       <Provider store={store}>

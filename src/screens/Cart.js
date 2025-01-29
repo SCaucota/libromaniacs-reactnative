@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, FlatList  } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useGetCartQuery } from '../services/cart'
-import { useSelector } from 'react-redux';
-import { FlatList } from 'react-native-web';
+import { useSelector } from 'react-redux'; 
 import CardProduct from '../components/CardProduct';
 
 const Cart = () => {
