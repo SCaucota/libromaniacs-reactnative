@@ -6,6 +6,8 @@ import CardProduct from '../components/CardProduct';
 import Spinner from '../components/Spinner';
 import { usePostOrdersMutation } from '../services/orders';
 import { useNavigation } from '@react-navigation/native';
+import { usePatchQuantityProductMutation } from '../services/shop';
+import ProductDetail from './ProductDetail';
 
 const Cart = () => {
     const navigation = useNavigation();
@@ -14,6 +16,7 @@ const Cart = () => {
     const [total, setTotal] = useState(0);
     const [triggerPostOrder] = usePostOrdersMutation()
     const [triggerDeleteCart] = useDeleteCartMutation();
+    const [triggerChangeQuantityProduct] = usePatchQuantityProductMutation()
 
     useEffect(() => {
       if(cart){
@@ -28,19 +31,11 @@ const Cart = () => {
         );
     }
 
-    /* if (isError || !cart) {
-        return (
-            <View>
-                <Text>Error: No se pudo cargar el carrito</Text>
-            </View>
-        );
-    } */
-
     if(!cart) return <Text>Tu carrito está vacío</Text>
 
     const cartProducts = Object.values(cart);
 
-    const completePurchase = () => {
+    const completePurchase = async() => {
       const date = new Date().toLocaleString();
       const order = {
         products:cart,
@@ -48,6 +43,25 @@ const Cart = () => {
         total
       }
       triggerPostOrder({order, localId});
+      
+      const updates = cartProducts.reduce((acc, product) => {
+        acc[product.id] = {
+          ...product,
+          stock: product.stock - product.quantity};
+        return acc;
+      }, {});
+
+      console.log(updates)
+
+      await Promise.all(
+        Object.keys(updates).map((productId) => {
+          triggerChangeQuantityProduct({
+            productId,
+            productData: updates[productId]
+          })
+        })
+      )
+
       triggerDeleteCart({localId})
       navigation.navigate('OrdersStack')
     }

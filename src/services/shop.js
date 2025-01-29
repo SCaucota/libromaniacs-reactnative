@@ -13,6 +13,13 @@ export const shopApi = createApi({
         }),
         getProducts: builder.query({
             query: () => `products.json`,
+        }),
+        patchQuantityProduct:builder.mutation({
+            query:({productId, productData}) => ({
+                url: `products/${productId}.json`,
+                method: 'PATCH',
+                body: productData
+            })
         })
     }),
 })
@@ -20,5 +27,6 @@ export const shopApi = createApi({
 export const {
     useGetCategoriesQuery,
     useGetProductsByCategoryQuery,
-    useGetProductsQuery
+    useGetProductsQuery,
+    usePatchQuantityProductMutation
 } = shopApi
