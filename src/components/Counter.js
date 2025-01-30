@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View,Pressable} from 'react-native'
 
-const Counter = ({quantity,increment,decrement}) => {
+const Counter = ({disabled, quantity,increment,decrement}) => {
 
     
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={decrement}>
+      <Pressable disabled={disabled} style={styles.button} onPress={decrement}>
           <Text style={styles.textButton}>-</Text>
       </Pressable>
       <Text style={styles.text}>{quantity}</Text>
-      <Pressable style={styles.button} onPress={increment}>
+      <Pressable disabled={disabled} style={styles.button} onPress={increment}>
         <Text style={styles.textButton}>+</Text>
       </Pressable>
       

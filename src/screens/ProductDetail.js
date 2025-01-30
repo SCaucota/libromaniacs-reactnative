@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { usePostCartMutation } from '../services/cart';
+import { useGetProductCartQuery, usePostCartMutation } from '../services/cart';
 import { useNavigation } from '@react-navigation/native';
 import Counter from '../components/Counter';
 
@@ -12,18 +12,25 @@ const ProductDetail = ({ route }) => {
     const [trigger] = usePostCartMutation();
     const navigation = useNavigation();
     const [quantity, setQuantity] = useState(1);
+    const {data:productCart} = useGetProductCartQuery({localId, productId:product.id})
+
+    const cartQuantity = productCart ? productCart.quantity : 0;
+    const sinStock = quantity + cartQuantity > product.stock
 
     const handleAddProduct = () => {
+        const newQuantity = quantity + cartQuantity;
         const cartProduct = {
             ...product,
-            quantity
+            quantity:newQuantity
         }
         trigger({localId, cartProduct})
+        setQuantity(1);
         navigation.navigate('CartStack')
     }
 
     const increment = () => {
-        if(quantity === product.stock) return
+        if(sinStock) return;
+        if(quantity === product.stock - cartQuantity) return
         setQuantity(quantity + 1)
     }
 
@@ -40,8 +47,8 @@ const ProductDetail = ({ route }) => {
                 <Text>{product.description}</Text>
                 <Text>{product.price}</Text>
                 <Text>{product.category}</Text>
-                <Counter quantity={quantity} increment={increment} decrement={decrement}/>
-                <Pressable onPress={handleAddProduct}>
+                <Counter disabled={sinStock} quantity={quantity} increment={increment} decrement={decrement}/>
+                <Pressable disabled={sinStock} onPress={handleAddProduct}>
                     <Text>Agregar al Carrito</Text>
                 </Pressable>
             </View>

@@ -27,6 +27,7 @@ const CardProduct = ({product, order}) => {
         }}>
           <View>
               <Text>{product.title}</Text>
+              {product.quantity && <Text>Cantidad: {product.quantity}</Text>}
               {
                 product.quantity ? 
                   <Pressable onPress={deleteProduct}>
