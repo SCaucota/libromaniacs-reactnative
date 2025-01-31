@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { colors } from '../globals/colors';
 
-const EmptyMessage = ({message}) => {
+const Message = ({message}) => {
   return (
     <View style={styles.emptyCartContainer}>
         <View style={styles.emptyCart}>
@@ -12,7 +12,7 @@ const EmptyMessage = ({message}) => {
   )
 }
 
-export default EmptyMessage
+export default Message
 
 const styles = StyleSheet.create({
     emptyCartContainer:{

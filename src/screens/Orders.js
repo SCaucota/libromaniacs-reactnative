@@ -2,9 +2,9 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useGetOrdersUserQuery } from '../services/orders';
-import CardProduct from '../components/CardProduct';
 import Spinner from '../components/Spinner';
 import CardOrder from '../components/CardOrder';
+import Message from '../components/Message';
 
 const Orders = () => {
 
@@ -12,10 +12,10 @@ const Orders = () => {
     const {data:orders, isLoading} = useGetOrdersUserQuery({localId});
 
     if(isLoading) return <Spinner/>
-    if(!orders) return <Text>No hay ordenes</Text>
+    if(!orders) return <Message message='No haz hecho ordenes'/>
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={orders}
         keyExtractor={item => item.id}
@@ -27,4 +27,8 @@ const Orders = () => {
 
 export default Orders
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    marginVertical: 15
+  }
+})

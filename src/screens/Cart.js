@@ -12,7 +12,7 @@ import CardProductCart from '../components/CardProductCart';
 import { colors } from '../globals/colors';
 import { formatPrice } from '../globals/functions';
 import { globalStyles } from '../globals/styles';
-import EmptyMessage from '../components/EmptyMessage';
+import Message from '../components/Message';
 
 const Cart = () => {
     const navigation = useNavigation();
@@ -36,7 +36,7 @@ const Cart = () => {
         );
     }
 
-    if(!cart) return <EmptyMessage message={'Tu carrito está vacío'}/>
+    if(!cart) return <Message message={'Tu carrito está vacío'}/>
 
     const cartProducts = Object.values(cart);
 
