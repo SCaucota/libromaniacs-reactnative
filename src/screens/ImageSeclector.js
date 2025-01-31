@@ -24,13 +24,6 @@ const ImageSeclector = () => {
             allowsEditing:true
         }
 
-        /* const result = await ImagePicker.launchCameraAsync({
-            aspect:[2,1],
-            quality:0.2,
-            base64:true,
-            allowsEditing:true
-        }) */
-
         const result = (method == 'camera') ? await ImagePicker.launchCameraAsync(config) : await ImagePicker.launchImageLibraryAsync(config)
 
         if(result.canceled)result
@@ -44,12 +37,13 @@ const ImageSeclector = () => {
 
   return (
     <View>
-      <Image
-        source={ image ? {uri:image} : require('../../assets/profile-img-default.png')}
-        resizeMethod='cover'
-        style={styles.image}
-      />
-      {/* <SubmitButton title='Tomar Foto' onPress={pickImage}/> */}
+      <View style={styles.imgContainer}>
+        <Image
+          source={ image ? {uri:image} : require('../../assets/profile-img-default.png')}
+          resizeMethod='cover'
+          style={styles.image}
+        />
+      </View>
       <SubmitButton title='Tomar Foto con camara' onPress={() => pickImage('camera')}/>
       <SubmitButton title='Tomar Foto de galeria' onPress={() => pickImage('')}/>
       <SubmitButton title='Confirmar' onPress={confirmImage} />
@@ -60,8 +54,14 @@ const ImageSeclector = () => {
 export default ImageSeclector
 
 const styles = StyleSheet.create({
+  imgContainer:{
+    display: 'flex',
+    alignItems: 'center',
+    paddingVertical: 20
+  },
     image:{
         height: 150,
-        width: 150
+        width: 150,
+        borderRadius: 100
     }
 })

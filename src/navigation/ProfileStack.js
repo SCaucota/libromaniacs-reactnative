@@ -23,8 +23,8 @@ const ProfileStack = () => {
       }}
     >
         <Stack.Screen name='Perfil' component={Profile}/>
-        <Stack.Screen name='Elegir foto' component={ImageSeclector} />
-        <Stack.Screen name='Elegir localidad' component={LocationSelector} />
+        <Stack.Screen name='ImageSelector' component={ImageSeclector} options={{title: 'Elegir Foto'}}/>
+        <Stack.Screen name='LocationSelector' component={LocationSelector} options={{title: 'Elegir Localidad'}}/>
     </Stack.Navigator>
   )
 }
