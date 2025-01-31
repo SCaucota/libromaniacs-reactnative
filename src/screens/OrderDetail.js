@@ -4,7 +4,6 @@ import { useRoute } from '@react-navigation/native'
 import { formatPrice } from '../globals/functions';
 import { globalStyles } from '../globals/styles';
 import Entypo from 'react-native-vector-icons/Entypo'
-import { colors } from '../globals/colors';
 
 const OrderDetail = () => {
     const route = useRoute();
@@ -27,7 +26,7 @@ const OrderDetail = () => {
       <Text style={globalStyles.subtitle}>Fecha: {order.date}</Text>
       <Text style={globalStyles.subtitle}>Productos:</Text>
       <FlatList
-        data={order.products}
+        data={Object.values(order.products)}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
       />

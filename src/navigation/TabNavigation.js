@@ -8,6 +8,7 @@ import ProfileStack from './ProfileStack'
 import CartStack from './CartStack'
 import OrdersStack from './OrdersStack';
 import { colors } from '../globals/colors'
+import HomeStack from './HomeStack'
 
 const Tab = createBottomTabNavigator();
 
@@ -22,8 +23,8 @@ const TabNavigation = () => {
             }}
         >
             <Tab.Screen 
-                name="Home" 
-                component={Home}
+                name="HomeStack" 
+                component={HomeStack}
                 options={{
                     tabBarIcon: ({focused}) => (
                         <TabBarIcon text="Inicio" icon="home" focused={focused}/>
