@@ -13,6 +13,7 @@ import { colors } from '../globals/colors';
 import { formatPrice } from '../globals/functions';
 import { globalStyles } from '../globals/styles';
 import Message from '../components/Message';
+import Search from '../components/Search';
 
 const Cart = () => {
     const navigation = useNavigation();
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   total:{
     color: colors.secondary,

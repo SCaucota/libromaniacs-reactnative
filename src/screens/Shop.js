@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Categories from '../components/Categories'
 
-const Home = () => {
+const Shop = () => {
   return (
     <View>
       <Categories />
@@ -10,6 +10,6 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Shop
 
 const styles = StyleSheet.create({})

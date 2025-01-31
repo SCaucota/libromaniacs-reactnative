@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { colors } from '../globals/colors';
 
-const SubmitButton = ({title, onPress, disabled}) => {
+const SubmitButton = ({title, onPress, disabled, icon}) => {
   return (
     <View style={styles.btnContainer} >
       <Pressable style={styles.btn} onPress={onPress} disabled={disabled}>

@@ -4,9 +4,9 @@ import { globalStyles } from '../globals/styles'
 import { colors } from '../globals/colors'
 import Entypo from 'react-native-vector-icons/Entypo'
 
-const InputForm = ({label, value, onChangeText, isSecure, error, icon}) => {
+const InputForm = ({label, value, onChangeText, isSecure, error, icon, styleAdded}) => {
   return (
-    <View style={styles.formContainer}>
+    <View style={[styles.formContainer, styleAdded]}>
       <Entypo name={icon} size={30} color={colors.primaryClear}/>
       <TextInput style={styles.input} placeholder={label} placeholderTextColor={colors.primaryClear} vlue={value} onChangeText={onChangeText} secureTextEntry={isSecure}/>
       {
