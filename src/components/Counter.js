@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View,Pressable} from 'react-native'
+import { StyleSheet, Text, View,Pressable} from 'react-native';
+import {colors} from '../globals/colors';
 
 const Counter = ({disabled, quantity,increment,decrement}) => {
 
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     gap:20,
   },
   button:{
-    backgroundColor:'red',
+    backgroundColor: colors.primary,
     width:50,
     padding:10,
     borderRadius:5,
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems:"center"
   },
   textButton:{
-    color: 'gray',
+    color: colors.secondary,
     fontSize:20
   },
 })

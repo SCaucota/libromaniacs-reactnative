@@ -19,7 +19,8 @@ export const globalStyles = StyleSheet.create({
     subtitle: {
         fontFamily: 'sourseSerif',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 18,
+        marginVertical: 10
     }
 
 })
