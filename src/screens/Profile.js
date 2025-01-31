@@ -22,21 +22,26 @@ const Profile = () => {
 
   return (
     <View>
-        <Pressable onPress={onLogout}>
-            <AntDesign name='logout' size={24} color='black'/>
-        </Pressable>
-        <Image
-            source={user?.image ? {uri:user.image} : require('../../assets/profile-img-default.png')}
-            resizeMode='cover'
-            style={styles.image}
-        />
-        {
-            user?.address ? 
-            <View>
-                <Text>{user.address}</Text>
-            </View>
-            : <View></View>
-        }
+        <View style={styles.logOut}>
+            <Pressable style={styles.btnLogOut} onPress={onLogout}>
+                <AntDesign name='logout' size={24} color='black'/>
+                <Text>Cerrar Sesión</Text>
+            </Pressable>
+        </View>
+        <View style={styles.imageAddressContainer}>
+            <Image
+                source={user?.image ? {uri:user.image} : require('../../assets/profile-img-default.png')}
+                resizeMode='cover'
+                style={styles.image}
+            />
+            {
+                user?.address ?
+                <View>
+                    <Text>{user.address}</Text>
+                </View>
+                : <View></View>
+            }
+        </View>
         <SubmitButton title={'Agregar imagen de perfil'} onPress={() => navigation.navigate('ImageSelector')}/>
         <SubmitButton title={'Agregar la localización'} onPress={() => navigation.navigate('LocationSelector')}/>
     </View>
@@ -46,8 +51,26 @@ const Profile = () => {
 export default Profile
 
 const styles = StyleSheet.create({
+    logOut:{
+        padding: 20,
+        display: 'flex',
+        alignItems: 'flex-start'
+    },
+    btnLogOut:{
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 10,
+        alignItems: 'center'
+    },
+    imageAddressContainer:{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 25,
+        marginBottom: 25
+    },
     image:{
         width: 150,
-        height: 150
+        height: 150,
+        borderRadius: 100
     }
 })

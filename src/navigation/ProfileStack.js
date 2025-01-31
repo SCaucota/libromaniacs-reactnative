@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import Profile from '../screens/Profile'
 import ImageSeclector from '../screens/ImageSeclector'
 import LocationSelector from '../screens/LocationSelector'
+import { colors } from '../globals/colors'
 
 const ProfileStack = () => {
 
