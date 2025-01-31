@@ -15,6 +15,7 @@
     "@react-navigation/native-stack": "^7.2.0",
     "@reduxjs/toolkit": "^2.5.0",
     "expo": "~52.0.23",
+    "expo-font": "^13.0.3",
     "expo-image-picker": "~16.0.4",
     "expo-location": "~18.0.5",
     "expo-sqlite": "^15.1.1",

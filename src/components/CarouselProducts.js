@@ -18,8 +18,6 @@ const CarouselProducts = ({ products }) => {
 
     const slidesRef = useRef(null);
 
-    console.log(products)
-
     return (
         <View style={styles.carouselContainer}>
             <FlatList

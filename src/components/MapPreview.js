@@ -11,7 +11,6 @@ const MapPreview = ({location}) => {
                           &maptype=roadmap
                           &markers=color:blue%7Clabel:S%7C${location.lat},${location.long}
                           &key=${googleapi}`.replace(/\s+/g, '')
-    console.log(mapStaticUrl)
 
   return (
     <View>

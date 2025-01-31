@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import InputForm from '../components/InputForm';
 import SubmitButton from '../components/SubmitButton';
@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../features/userSlice';
 import { deleteSesion, insertSession } from '../config/dbSQL';
 import Spinner from '../components/Spinner';
+import { colors } from '../globals/colors';
+import {globalStyles} from '../globals/styles';
 
 const Login = () => {
 
@@ -33,7 +35,6 @@ const Login = () => {
         dispatch(setUser(user))
         await deleteSesion()
         await insertSession(user.localId, user.email, user.idToken)
-        console.log(response)
       } catch (error) {
         switch(error.path){
           case 'email':
@@ -51,32 +52,48 @@ const Login = () => {
     }
 
   return (
-    <View>
+    <View style={styles.container}>
       <View>
-        <Text>Ingresar</Text>
-        <InputForm
-            label="Email"
-            value={email}
-            onChangeText={(t) => setEmail(t)}
-            isSecure={false}
-            error={emailError}
-        />
-        <InputForm
-            label="Password"
-            value={password}
-            onChangeText={(t) => setPassword(t)}
-            isSecure={true}
-            error={passwordError}
-        />
-        {loading ? (
-              <Spinner/>
-          ) : (
-              <SubmitButton onPress={onSubmit} title="Ingresar" />
-          )}
-          <Text>No tienes una cuenta?</Text>
-          <Pressable onPress={() => navigation.navigate("Signup")}>
-              <Text style={styles.link}>Registrarse</Text>
-          </Pressable>
+        <View style={styles.content}>
+          <Text style={globalStyles.title}>Hola!</Text>
+          <Text style={globalStyles.paragraph}>Bienvenidx a</Text>
+          <Text style={styles.brand}>Libromaniacs</Text>
+        </View>
+        <View style={styles.formContainer}>
+          <Text style={[globalStyles.title, { color: colors.primary, paddingTop: 25, paddingBottom: 5}]}>Ingresar</Text>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={require('../../assets/images/logo-app.png')}/>
+          </View>
+          <View style={styles.inputsContainer}>
+            <InputForm
+                label="email"
+                value={email}
+                onChangeText={(t) => setEmail(t)}
+                isSecure={false}
+                error={emailError}
+                icon='mail'
+            />
+            <InputForm
+                label="contraseña"
+                value={password}
+                onChangeText={(t) => setPassword(t)}
+                isSecure={true}
+                error={passwordError}
+                icon='lock'
+            />
+          </View>
+          {loading ? (
+                <Spinner/>
+            ) : (
+                <SubmitButton onPress={onSubmit} title="Iniciar Sesión" />
+            )}
+            <View style={styles.singUp}>
+              <Text style={styles.smallText}>No tienes una cuenta?</Text>
+              <Pressable onPress={() => navigation.navigate("Signup")}>
+                  <Text style={styles.link}>Registrarse</Text>
+              </Pressable>
+            </View>
+        </View>
       </View>
     </View>
   )
@@ -84,4 +101,67 @@ const Login = () => {
 
 export default Login
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.primary,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    height: '100%'
+  },
+  content: {
+    justifyContent: 'flex-end',
+  },
+  brand: {
+    color: colors.secondary,
+    fontSize: 30,
+    paddingLeft: 20,
+    marginBottom: 20,
+    fontFamily: 'montserrat',
+    fontWeight: 'bold',
+  },
+  imageContainer:{
+    width: 120,
+    height: 300,
+    backgroundColor: colors.primaryClear,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomLeftRadius: 20,
+    position: 'absolute',
+    top: -250,
+    right: 0,
+  },
+  image:{ 
+    height: 100,
+    width: 65,
+  },
+  formContainer:{
+    backgroundColor: colors.secondary,
+    borderTopEndRadius: 10,
+    borderTopLeftRadius: 10,
+    height: 400,
+  },
+  inputsContainer:{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15,
+    gap: 20
+  },
+  singUp: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginVertical: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  smallText: {
+    fontSize: 16,
+  },
+  link: {
+    color: colors.ternary,
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingLeft: 10
+  }
+})
