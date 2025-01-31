@@ -10,10 +10,20 @@ const ProfileStack = () => {
     const Stack = createNativeStackNavigator();
     
   return (
-    <Stack.Navigator>
-        <Stack.Screen name='Profile' component={Profile}/>
-        <Stack.Screen name='ImageSelector' component={ImageSeclector} />
-        <Stack.Screen name='LocationSelector' component={LocationSelector} />
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+        backgroundColor: colors.secondary,
+      },
+        headerTintColor: colors.primary,
+        headerTitleStyle: {
+          fontSize: 20,
+        },
+      }}
+    >
+        <Stack.Screen name='Perfil' component={Profile}/>
+        <Stack.Screen name='Elegir foto' component={ImageSeclector} />
+        <Stack.Screen name='Elegir localidad' component={LocationSelector} />
     </Stack.Navigator>
   )
 }

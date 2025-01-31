@@ -26,7 +26,7 @@ const TabNavigation = () => {
                 component={Home}
                 options={{
                     tabBarIcon: ({focused}) => (
-                        <TabBarIcon text="Home" icon="home" focused={focused}/>
+                        <TabBarIcon text="Inicio" icon="home" focused={focused}/>
                     )
                 }}
             />

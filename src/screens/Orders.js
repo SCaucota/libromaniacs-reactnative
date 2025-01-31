@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { useGetOrdersUserQuery } from '../services/orders';
 import CardProduct from '../components/CardProduct';
 import Spinner from '../components/Spinner';
+import CardOrder from '../components/CardOrder';
 
 const Orders = () => {
 
@@ -18,7 +19,7 @@ const Orders = () => {
       <FlatList
         data={orders}
         keyExtractor={item => item.id}
-        renderItem={({item}) => <CardProduct order={item}/>}
+        renderItem={({item}) => <CardOrder order={item}/>}
       />
     </View>
   )

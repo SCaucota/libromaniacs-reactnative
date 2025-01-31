@@ -8,6 +8,7 @@ import { usePostOrdersMutation } from '../services/orders';
 import { useNavigation } from '@react-navigation/native';
 import { usePatchQuantityProductMutation } from '../services/shop';
 import ProductDetail from './ProductDetail';
+import CardProductCart from '../components/CardProductCart';
 
 const Cart = () => {
     const navigation = useNavigation();
@@ -75,7 +76,7 @@ const Cart = () => {
       <FlatList
         data={cartProducts}
         keyExtractor={item => item.id}
-        renderItem={({item}) => <CardProduct product={item}/>}
+        renderItem={({item}) => <CardProductCart cartProduct={item}/>}
       />
       <View>
         <Text>Total: {total}</Text>

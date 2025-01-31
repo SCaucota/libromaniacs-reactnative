@@ -1,46 +1,40 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { useSelector } from 'react-redux';
-import { useDeleteProductCartMutation } from '../services/cart';
-import Entypo from 'react-native-vector-icons/Entypo'
+import { globalStyles } from '../globals/styles';
 
-const CardProduct = ({product, order}) => {
-
+const CardProduct = ({product}) => {
     const navigation = useNavigation();
-    const localId = useSelector(state => state.user.localId)
-    const [trigger] = useDeleteProductCartMutation()
 
-    const deleteProduct = () => {
-      trigger({localId, productId:product.id})
+    const formatPrice = (price) => {
+      return new Intl.NumberFormat('es-ES').format(price);
     }
 
   return (
-      order ? (
+      <Pressable style={styles.btn} onPress={() => {
+        navigation.navigate("ProductDetail", {product})
+      }}>
+        <Image style={styles.img} source={{uri: product.image}}/>
         <View>
-          <Text>Fecha: {order.date}</Text>
-          <Text>Total: {order.total}</Text>
+          <Text style={globalStyles.subtitle}>{product.title}</Text>
+          <Text>{product.author}</Text>
+          <Text style={[globalStyles.subtitle, {fontWeight: 0}]} >${formatPrice(product.price)}</Text>
         </View>
-      ):(
-        <Pressable onPress={() => {
-          navigation.navigate("ProductDetail", {product})
-        }}>
-          <View>
-              <Text>{product.title}</Text>
-              {product.quantity && <Text>Cantidad: {product.quantity}</Text>}
-              {
-                product.quantity ? 
-                  <Pressable onPress={deleteProduct}>
-                    <Entypo name='trash' size={30} color='red'/>
-                  </Pressable>
-                : <View></View>
-              }
-          </View>
-        </Pressable>
-      )
+      </Pressable>
   )
 }
 
 export default CardProduct
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  btn: {
+    padding: 15,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 15
+  },
+  img:{
+    height: 150,
+    width: 100
+  }
+})

@@ -16,5 +16,10 @@ export const globalStyles = StyleSheet.create({
         paddingLeft: 20,
         marginBottom: '1rem'
     },
+    subtitle: {
+        fontFamily: 'sourseSerif',
+        fontWeight: 'bold',
+        fontSize: 18
+    }
 
 })

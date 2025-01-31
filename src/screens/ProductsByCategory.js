@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useGetProductsByCategoryQuery } from '../services/shop'
 import CardProduct from '../components/CardProduct'
+import { colors } from '../globals/colors'
 
 const ProductsByCategory = ({route}) => {
 
@@ -34,6 +35,7 @@ const ProductsByCategory = ({route}) => {
             data={products}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <CardProduct product={item} />}
+            ItemSeparatorComponent={() => <View style={styles.separator}/>}
         />
     )}
     </View>
@@ -42,4 +44,10 @@ const ProductsByCategory = ({route}) => {
 
 export default ProductsByCategory
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    separator: {
+        height: 1,
+        backgroundColor: colors.grayDivider,
+        marginVertical: 5,
+    }
+})

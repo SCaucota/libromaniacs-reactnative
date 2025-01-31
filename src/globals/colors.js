@@ -4,4 +4,5 @@ export const colors = {
     ternary: '#442d1c',
     secondaryClear: '#F9EACF',
     primaryClear: '#AE6A4F',
+    grayDivider: '#D7D7D7'
 }
