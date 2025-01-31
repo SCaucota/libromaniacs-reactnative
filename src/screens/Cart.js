@@ -9,6 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import { usePatchQuantityProductMutation } from '../services/shop';
 import ProductDetail from './ProductDetail';
 import CardProductCart from '../components/CardProductCart';
+import { colors } from '../globals/colors';
+import { formatPrice } from '../globals/functions';
+import { globalStyles } from '../globals/styles';
+import EmptyMessage from '../components/EmptyMessage';
 
 const Cart = () => {
     const navigation = useNavigation();
@@ -32,7 +36,7 @@ const Cart = () => {
         );
     }
 
-    if(!cart) return <Text>Tu carrito está vacío</Text>
+    if(!cart) return <EmptyMessage message={'Tu carrito está vacío'}/>
 
     const cartProducts = Object.values(cart);
 
@@ -52,8 +56,6 @@ const Cart = () => {
         return acc;
       }, {});
 
-      console.log(updates)
-
       await Promise.all(
         Object.keys(updates).map((productId) => {
           triggerChangeQuantityProduct({
@@ -72,19 +74,20 @@ const Cart = () => {
     }
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={cartProducts}
         keyExtractor={item => item.id}
         renderItem={({item}) => <CardProductCart cartProduct={item}/>}
+        contentContainerStyle={styles.listContent}
       />
-      <View>
-        <Text>Total: {total}</Text>
-        <Pressable onPress={completePurchase}>
-          <Text>Finalizar compra</Text>
+      <Pressable style={styles.btnEmpty} onPress={clearCart}>
+          <Text style={styles.btnEmptyText}>Vaciar carrito</Text>
         </Pressable>
-        <Pressable onPress={clearCart}>
-          <Text>Vaciar carrito</Text>
+      <View style={styles.totalContainer}>
+        <Text style={styles.total} >Total: ${formatPrice(total)}</Text>
+        <Pressable style={styles.btnPurchase} onPress={completePurchase}>
+          <Text style={styles.btnPurchaseText}>Finalizar compra</Text>
         </Pressable>
       </View>
     </View>
@@ -93,4 +96,53 @@ const Cart = () => {
 
 export default Cart
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    flex: 1
+  },
+  totalContainer:{
+    backgroundColor: colors.primary,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    padding: 15,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    alignItems: 'center'
+  },
+  total:{
+    color: colors.secondary,
+    fontWeight: 'bold',
+    fontSize: 18
+  },
+  btnPurchase:{
+    backgroundColor: colors.primaryClear,
+    padding: 15,
+    borderRadius: 10,
+  },
+  btnPurchaseText:{
+    color: colors.primary,
+    fontWeight: 'bold',
+    fontSize: 15
+  },
+  btnEmpty:{
+    backgroundColor: colors.primaryClear,
+    position: 'absolute',
+    paddingVertical: 15,
+    paddingHorizontal: 28,
+    borderRadius: 10,
+    bottom: 95,
+    right: 10
+  },
+  btnEmptyText:{
+    color: colors.secondary,
+    fontSize: 15,
+  },
+  listContent:{
+    paddingBottom: 150,
+    marginBottom: 20,
+  }
+})

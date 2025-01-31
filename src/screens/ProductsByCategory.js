@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useGetProductsByCategoryQuery } from '../services/shop'
 import CardProduct from '../components/CardProduct'
 import { colors } from '../globals/colors'
+import Spinner from '../components/Spinner'
 
 const ProductsByCategory = ({route}) => {
 
@@ -23,7 +24,7 @@ const ProductsByCategory = ({route}) => {
         }
     },[keyword,isSuccess])
 
-    if(isLoading) return <View><Text>Cargando...</Text></View>
+    if(isLoading) return <Spinner/>
     if(isError) return <View><Text>{error.message}</Text></View>
 
   return (
@@ -47,7 +48,7 @@ export default ProductsByCategory
 const styles = StyleSheet.create({
     separator: {
         height: 1,
-        backgroundColor: colors.grayDivider,
+        backgroundColor: colors.gray,
         marginVertical: 5,
     }
 })

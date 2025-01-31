@@ -6,7 +6,6 @@ import { formatPrice } from '../globals/functions';
 
 const CardProduct = ({product}) => {
     const navigation = useNavigation();
-
   return (
       <Pressable style={styles.btn} onPress={() => {
         navigation.navigate("ProductDetail", {product})
