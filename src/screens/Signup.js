@@ -8,6 +8,9 @@ import { useDispatch } from 'react-redux'
 import { setUser } from '../features/userSlice'
 import { signupSchema } from '../validations/signupSchema'
 import { deleteSession, insertSession } from '../config/dbSQL'
+import { colors } from '../globals/colors';
+import { globalStyles } from '../globals/styles';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const Signup = () => {
 
@@ -57,35 +60,40 @@ const Signup = () => {
       }
     }
   return (
-    <View>
-      <View>
-        <Text>Registrarme</Text>
-        <InputForm
-            label="Email"
-            value={email}
-            onChangeText={(t) => setEmail(t)}
-            isSecure={false}
-            error={emailError}
-        />
-        <InputForm
-            label="Password"
-            value={password}
-            onChangeText={(t) => setPassword(t)}
-            isSecure={true}
-            error={passwordError}
-        />
-        <InputForm
-            label="Confirm password"
-            value={confirmPassword}
-            onChangeText={(t) => setConfirmPassword(t)}
-            isSecure={true}
-            error={confirmPasswordError}
-        />
-        <SubmitButton title="Enviar" onPress={onSubmit}/>
-        <Text>Ya tienes una cuenta?</Text>
-        <Pressable onPress={() => navigation.navigate("Login")}>
-            <Text>Ingresar</Text>
-        </Pressable>
+    <View style={styles.container}>
+      <Pressable style={styles.backButton} onPress={() => navigation.navigate("Login")}>
+        <Entypo name="arrow-with-circle-left" size={35} color={colors.secondary} />
+        <Text style={styles.btnText}>Volver a Ingresar</Text>
+      </Pressable>
+      <View style={styles.formContainer}>
+        <Text style={[globalStyles.title, { color: colors.primary, paddingTop: 25, paddingBottom: 5}]}>Registro</Text>
+        <View style={styles.inputsContainer}>
+          <InputForm
+              label="email"
+              value={email}
+              onChangeText={(t) => setEmail(t)}
+              isSecure={false}
+              error={emailError}
+              icon='mail'
+          />
+          <InputForm
+              label="contraseña"
+              value={password}
+              onChangeText={(t) => setPassword(t)}
+              isSecure={true}
+              error={passwordError}
+              icon='lock'
+          />
+          <InputForm
+              label="confirmar contraseña"
+              value={confirmPassword}
+              onChangeText={(t) => setConfirmPassword(t)}
+              isSecure={true}
+              error={confirmPasswordError}
+              icon='lock'
+          />
+        </View>
+        <SubmitButton title="Registrarse" onPress={onSubmit}/>
       </View>
     </View>
   )
@@ -93,4 +101,37 @@ const Signup = () => {
 
 export default Signup
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.primary,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    height: '100%'
+  },
+  formContainer:{
+    backgroundColor: colors.secondary,
+    borderTopEndRadius: 25,
+    borderTopLeftRadius: 25,
+    height: 500,
+  },
+  inputsContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15,
+    gap: 20
+  },
+  backButton: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingLeft: 15,
+    gap: 10,
+    alignItems:'center',
+    marginBottom: 25
+  },
+  btnText:{
+    color: colors.secondary,
+    fontSize: 18
+  }
+})

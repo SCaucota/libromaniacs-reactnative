@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
   },
   formContainer:{
     backgroundColor: colors.secondary,
-    borderTopEndRadius: 10,
-    borderTopLeftRadius: 10,
+    borderTopEndRadius: 25,
+    borderTopLeftRadius: 25,
     height: 400,
   },
   inputsContainer:{

@@ -7,7 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 const InputForm = ({label, value, onChangeText, isSecure, error, icon}) => {
   return (
     <View style={styles.formContainer}>
-      <Entypo name={icon} size={30} color={colors.primary}/>
+      <Entypo name={icon} size={30} color={colors.primaryClear}/>
       <TextInput style={styles.input} placeholder={label} placeholderTextColor={colors.primaryClear} vlue={value} onChangeText={onChangeText} secureTextEntry={isSecure}/>
       {
         error ? <View><Text>{error}</Text></View> : null
