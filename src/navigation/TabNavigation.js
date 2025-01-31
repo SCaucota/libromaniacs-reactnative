@@ -6,7 +6,8 @@ import ShopStack from './ShopStack'
 import Home from '../screens/Home'
 import ProfileStack from './ProfileStack'
 import CartStack from './CartStack'
-import OrdersStack from './OrdersStack'
+import OrdersStack from './OrdersStack';
+import { colors } from '../globals/colors'
 
 const Tab = createBottomTabNavigator();
 
@@ -21,15 +22,6 @@ const TabNavigation = () => {
             }}
         >
             <Tab.Screen 
-                name="ShopStack" 
-                component={ShopStack}
-                options={{
-                    tabBarIcon: ({focused}) => (
-                        <TabBarIcon text="Shop" icon="shop" focused={focused}/>
-                    )
-                }}
-            />
-            <Tab.Screen 
                 name="Home" 
                 component={Home}
                 options={{
@@ -39,11 +31,11 @@ const TabNavigation = () => {
                 }}
             />
             <Tab.Screen 
-                name="ProfileStack" 
-                component={ProfileStack}
+                name="ShopStack" 
+                component={ShopStack}
                 options={{
                     tabBarIcon: ({focused}) => (
-                        <TabBarIcon text="Perfil" icon="user" focused={focused}/>
+                        <TabBarIcon text="Buscar" icon="magnifying-glass" focused={focused}/>
                     )
                 }}
             />
@@ -52,7 +44,7 @@ const TabNavigation = () => {
                 component={CartStack}
                 options={{
                     tabBarIcon: ({focused}) => (
-                        <TabBarIcon text="Cart" icon="shopping-cart" focused={focused}/>
+                        <TabBarIcon text="Carrito" icon="shopping-bag" focused={focused}/>
                     )
                 }}
             />
@@ -65,13 +57,22 @@ const TabNavigation = () => {
                     )
                 }}
             />
+            <Tab.Screen 
+                name="ProfileStack" 
+                component={ProfileStack}
+                options={{
+                    tabBarIcon: ({focused}) => (
+                        <TabBarIcon text="Perfil" icon="user" focused={focused}/>
+                    )
+                }}
+            />
         </Tab.Navigator>
     )
 }
 
 const styles = StyleSheet.create({
     tabBar: {
-        backgroundColor: "red",
+        backgroundColor: colors.secondary,
         height: 70
     }
 })

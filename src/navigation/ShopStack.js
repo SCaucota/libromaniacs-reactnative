@@ -11,9 +11,9 @@ const ShopStack = () => {
 
   return (
     <Stack.Navigator>
-        <Stack.Screen name="Shop" component={Shop} />
-        <Stack.Screen name="ProductsByCategory" component={ProductsByCategory} />
-        <Stack.Screen name="ProductDetail" component={ProductDetail} />
+        <Stack.Screen name="Tienda" component={Shop} />
+        <Stack.Screen name="ProductsByCategory" component={ProductsByCategory} options={({route}) => ({title:route.params?.category.toUpperCase() || 'Categoría'})}/>
+        <Stack.Screen name="ProductDetail" component={ProductDetail} options={({route}) => ({title:route.params?.product.title.toUpperCase()})}/>
     </Stack.Navigator>
   )
 }
