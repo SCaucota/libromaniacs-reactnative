@@ -32,7 +32,7 @@ const ImageSeclector = () => {
 
     const confirmImage = () => {
         trigger({localId, image})
-        navigation.navigate('Profile')
+        navigation.navigate('Perfil')
     }
 
   return (

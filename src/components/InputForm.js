@@ -6,11 +6,13 @@ import Entypo from 'react-native-vector-icons/Entypo'
 
 const InputForm = ({label, value, onChangeText, isSecure, error, icon, styleAdded}) => {
   return (
-    <View style={[styles.formContainer, styleAdded]}>
-      <Entypo name={icon} size={30} color={colors.primaryClear}/>
-      <TextInput style={styles.input} placeholder={label} placeholderTextColor={colors.primaryClear} vlue={value} onChangeText={onChangeText} secureTextEntry={isSecure}/>
+    <View>
+      <View style={[styles.formContainer, styleAdded]}>
+        <Entypo name={icon} size={30} color={colors.primaryClear}/>
+        <TextInput style={styles.input} placeholder={label} placeholderTextColor={colors.primaryClear} vlue={value} onChangeText={onChangeText} secureTextEntry={isSecure}/>
+      </View>
       {
-        error ? <View><Text>{error}</Text></View> : null
+        error ? <View><Text style={styles.error}>{error}</Text></View> : null
       }
     </View>
   )
@@ -35,5 +37,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 10,
     width: '80%'
+  },
+  error:{
+    color: colors.primary,
+    paddingTop: 15,
+    paddingLeft: 5
   }
 })

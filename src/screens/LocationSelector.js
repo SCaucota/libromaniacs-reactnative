@@ -56,7 +56,7 @@ const LocationSelector = () => {
 
     const handleConfirmLocation = () => {
       trigger({localId, address, location});
-      navigation.navigate('Profile');
+      navigation.navigate('Perfil');
     }
 
   return (
