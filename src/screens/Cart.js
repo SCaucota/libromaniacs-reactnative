@@ -2,32 +2,32 @@ import { StyleSheet, Text, View, FlatList, Pressable  } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useDeleteCartMutation, useGetCartQuery } from '../services/cart'
 import { useSelector } from 'react-redux'; 
-import CardProduct from '../components/CardProduct';
 import Spinner from '../components/Spinner';
 import { usePostOrdersMutation } from '../services/orders';
 import { useNavigation } from '@react-navigation/native';
 import { usePatchQuantityProductMutation } from '../services/shop';
-import ProductDetail from './ProductDetail';
 import CardProductCart from '../components/CardProductCart';
 import { colors } from '../globals/colors';
 import { formatPrice } from '../globals/functions';
 import { globalStyles } from '../globals/styles';
 import Message from '../components/Message';
-import Search from '../components/Search';
 
 const Cart = () => {
     const navigation = useNavigation();
     const localId = useSelector(state => state.user.localId);
-    const { data: cart, isLoading, isError } = useGetCartQuery({ localId });
+    const { data: cart, isLoading } = useGetCartQuery({ localId });
     const [total, setTotal] = useState(0);
     const [triggerPostOrder] = usePostOrdersMutation()
     const [triggerDeleteCart] = useDeleteCartMutation();
     const [triggerChangeQuantityProduct] = usePatchQuantityProductMutation()
+    const [cartProducts, setCartProducts] = useState([]);
 
     useEffect(() => {
       if(cart){
-        const cartProducts = Object.values(cart);
-        setTotal(cartProducts.reduce((acc, item) => acc + item.price * item.quantity, 0))
+        const productsArray = Object.values(cart).filter(item => item !== null);
+        setCartProducts(productsArray);
+        const calculatedTotal = productsArray.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        setTotal(calculatedTotal);
       }
     }, [cart])
 
@@ -39,21 +39,20 @@ const Cart = () => {
 
     if(!cart) return <Message message={'Tu carrito está vacío'}/>
 
-    const cartProducts = Object.values(cart);
-
     const completePurchase = async() => {
       const date = new Date().toLocaleString();
       const order = {
-        products:cart,
+        products:cartProducts,
         date,
         total
       }
       triggerPostOrder({order, localId});
       
       const updates = cartProducts.reduce((acc, product) => {
+        const { quantity, ...productWithoutQuantity } = product;
         acc[product.id] = {
-          ...product,
-          stock: product.stock - product.quantity};
+          ...productWithoutQuantity,
+          stock: product.stock - quantity};
         return acc;
       }, {});
 
@@ -91,7 +90,6 @@ const Cart = () => {
           <Text style={styles.btnPurchaseText}>Finalizar compra</Text>
         </Pressable>
       </View>
-      <Search onSearch={handleSearch}/>
     </View>
   )
 }

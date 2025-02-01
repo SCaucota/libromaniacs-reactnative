@@ -19,7 +19,7 @@ export const shopApi = createApi({
                 url: `products/${productId}.json`,
                 method: 'PATCH',
                 body: productData
-            })
+            }),
         })
     }),
 })

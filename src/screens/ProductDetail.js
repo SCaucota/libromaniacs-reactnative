@@ -21,13 +21,13 @@ const ProductDetail = ({ route }) => {
     const cartQuantity = productCart ? productCart.quantity : 0;
     const sinStock = quantity + cartQuantity > product.stock
 
-    const handleAddProduct = () => {
+    const handleAddProduct = async() => {
         const newQuantity = quantity + cartQuantity;
         const cartProduct = {
             ...product,
             quantity:newQuantity
         }
-        trigger({localId, cartProduct})
+        await trigger({localId, cartProduct})
         setQuantity(1);
         navigation.navigate('CartStack')
     }
@@ -62,7 +62,7 @@ const ProductDetail = ({ route }) => {
                     <Text>{product.description}</Text>
                     <Text style={[globalStyles.subtitle, {fontSize: 23}]}>${formatPrice(product.price)}</Text>
                     <Counter disabled={sinStock} quantity={quantity} increment={increment} decrement={decrement}/>
-                    <SubmitButton style={{marginBottom: 50}} title='Agregar al Carrito' onPress={handleAddProduct} disabled={sinStock}/>
+                    <SubmitButton style={{marginBottom: 50}} title={sinStock ? 'Sin stock' : 'Agregar al Carrito' } onPress={handleAddProduct} disabled={sinStock}/>
                 </View>
             </ScrollView>
         </>

@@ -7,11 +7,11 @@ const Counter = ({disabled, quantity,increment,decrement}) => {
 
   return (
     <View style={styles.container}>
-      <Pressable disabled={disabled} style={styles.button} onPress={decrement}>
+      <Pressable style={[styles.button, disabled && styles.btnDisabled]} disabled={disabled} onPress={decrement}>
           <Text style={styles.textButton}>-</Text>
       </Pressable>
       <Text style={styles.text}>{quantity}</Text>
-      <Pressable disabled={disabled} style={styles.button} onPress={increment}>
+      <Pressable disabled={disabled} style={[styles.button, disabled && styles.btnDisabled]} onPress={increment}>
         <Text style={styles.textButton}>+</Text>
       </Pressable>
       
@@ -41,4 +41,8 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontSize:20
   },
+  btnDisabled: {
+    backgroundColor: colors.primaryClear,
+    opacity: 0.5
+  }
 })

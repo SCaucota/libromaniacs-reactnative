@@ -9,7 +9,7 @@ import { globalStyles } from '../globals/styles'
 
 const ProductsByCategory = ({ route }) => {
     const { category } = route.params;
-    const { data, isSuccess, isError, error, isLoading } = useGetProductsByCategoryQuery(category);
+    const { data, isSuccess, isError, error, isLoading, refetch } = useGetProductsByCategoryQuery(category);
     
     const [products, setProducts] = useState([]);
     const [productsFiltered, setProductsFiltered] = useState([]);
@@ -19,6 +19,7 @@ const ProductsByCategory = ({ route }) => {
             const productList = Object.values(data);
             setProducts(productList);
             setProductsFiltered(productList);
+            refetch()
         }
     }, [isSuccess, data]);
 

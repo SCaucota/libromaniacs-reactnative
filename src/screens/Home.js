@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import React from 'react';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useGetProductsQuery } from '../services/shop';
 import Spinner from '../components/Spinner';
 import Message from '../components/Message';
@@ -8,7 +8,16 @@ import { globalStyles } from '../globals/styles';
 
 const Home = () => {
 
-  const { data, isLoading, error } = useGetProductsQuery();
+  const { data, isLoading, error, refetch } = useGetProductsQuery();
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if(data) {
+      setProducts(Object.values(data))
+      refetch()
+    }
+  }, [data])
 
   if (isLoading) {
     return <View style={globalStyles.centerComponent}><Spinner/></View>
@@ -18,10 +27,10 @@ const Home = () => {
     return <Message message='Error al cargar los productos'/>;
   }
 
-  const newProducts = data.filter(item => item.new === true)
-  const popularProducts = data.filter(item => item.rating >= 4.5)
-  const autumBooks = data.filter(item => item.season === 'otoño')
-  const movieAdaptedBooks = data.filter(item => item.movieAdaptation === true)
+  const newProducts = products.filter(item => item.new === true)
+  const popularProducts = products.filter(item => item.rating >= 4.5)
+  const autumBooks = products.filter(item => item.season === 'otoño')
+  const movieAdaptedBooks = products.filter(item => item.movieAdaptation === true)
 
   return (
       <ScrollView>
