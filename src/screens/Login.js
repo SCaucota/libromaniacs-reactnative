@@ -10,11 +10,13 @@ import { deleteSesion, insertSession } from '../config/dbSQL';
 import Spinner from '../components/Spinner';
 import { colors } from '../globals/colors';
 import {globalStyles} from '../globals/styles';
-
+import { loginSchema } from '../validations/loginSchema.js';
+/* "Lolita12" */
+/* "lola@gmail.com" */
 const Login = () => {
 
-    const [email, setEmail] = useState("lola@gmail.com");
-    const [password, setPassword] = useState("Lolita12");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -26,7 +28,17 @@ const Login = () => {
     const onSubmit = async () => {
       setLoading(true);
       try {
+        loginSchema.validateSync({email, password})
         const response = await trigger({email, password})
+        if (response.error) {
+          const firebaseError = response.error?.data?.error?.message;
+    
+          if (firebaseError === "INVALID_LOGIN_CREDENTIALS") {
+            setPasswordError("Email o contraseña incorrectos");
+            setEmailError("");
+            return;
+          } 
+        }
         const user = {
           email:response.data.email,
           idToken:response.data.idToken,
@@ -36,6 +48,7 @@ const Login = () => {
         await deleteSesion()
         await insertSession(user.localId, user.email, user.idToken)
       } catch (error) {
+        console.log(error.path)
         switch(error.path){
           case 'email':
             setEmailError(error.message)
