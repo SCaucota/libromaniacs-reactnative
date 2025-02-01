@@ -4,13 +4,14 @@ import { useGetProductsQuery } from '../services/shop';
 import Spinner from '../components/Spinner';
 import Message from '../components/Message';
 import BooksList from '../components/BookList';
+import { globalStyles } from '../globals/styles';
 
 const Home = () => {
 
   const { data, isLoading, error } = useGetProductsQuery();
 
   if (isLoading) {
-    return <Spinner/>
+    return <View style={globalStyles.centerComponent}><Spinner/></View>
   }
 
   if (error) {

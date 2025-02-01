@@ -33,7 +33,7 @@ const Cart = () => {
 
     if (isLoading) {
         return (
-            <Spinner/>
+            <View style={globalStyles.centerComponent}><Spinner/></View>
         );
     }
 
@@ -91,6 +91,7 @@ const Cart = () => {
           <Text style={styles.btnPurchaseText}>Finalizar compra</Text>
         </Pressable>
       </View>
+      <Search onSearch={handleSearch}/>
     </View>
   )
 }

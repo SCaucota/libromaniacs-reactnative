@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react';
 import { colors } from '../globals/colors';
+import { globalStyles } from '../globals/styles';
 
 const Message = ({message}) => {
   return (
-    <View style={styles.emptyCartContainer}>
+    <View style={globalStyles.centerComponent}>
         <View style={styles.emptyCart}>
             <Text style={styles.emptybtnText}>{message}</Text>
         </View>
@@ -15,12 +16,6 @@ const Message = ({message}) => {
 export default Message
 
 const styles = StyleSheet.create({
-    emptyCartContainer:{
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     emptyCart:{
         borderStyle: 'solid',
         borderColor: colors.primary,

@@ -5,6 +5,7 @@ import CardProduct from '../components/CardProduct'
 import { colors } from '../globals/colors'
 import Spinner from '../components/Spinner'
 import Search from '../components/Search'
+import { globalStyles } from '../globals/styles'
 
 const ProductsByCategory = ({ route }) => {
     const { category } = route.params;
@@ -32,7 +33,7 @@ const ProductsByCategory = ({ route }) => {
         setProductsFiltered(filtered);
     };
 
-    if (isLoading) return <Spinner />;
+    if (isLoading) return <View style={globalStyles.centerComponent}><Spinner/></View>;
     if (isError) return <View><Text>{error.message}</Text></View>;
 
     return (

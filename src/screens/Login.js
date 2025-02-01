@@ -93,7 +93,7 @@ const Login = () => {
             />
           </View>
           {loading ? (
-                <Spinner/>
+                <View style={globalStyles.centerComponent}><Spinner/></View>
             ) : (
                 <SubmitButton onPress={onSubmit} title="Iniciar Sesión" />
             )}

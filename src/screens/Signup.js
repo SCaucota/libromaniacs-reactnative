@@ -122,7 +122,7 @@ const Signup = () => {
             />
           </View>
           {loading ? (
-            <Spinner />
+            <View style={globalStyles.centerComponent}><Spinner/></View>
           ) : (
             <SubmitButton title="Registrarse" onPress={onSubmit} />
           )}

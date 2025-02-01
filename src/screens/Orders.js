@@ -5,13 +5,14 @@ import { useGetOrdersUserQuery } from '../services/orders';
 import Spinner from '../components/Spinner';
 import CardOrder from '../components/CardOrder';
 import Message from '../components/Message';
+import { globalStyles } from '../globals/styles';
 
 const Orders = () => {
 
     const localId = useSelector(state => state.user.localId);
     const {data:orders, isLoading} = useGetOrdersUserQuery({localId});
 
-    if(isLoading) return <Spinner/>
+    if(isLoading) return <View style={globalStyles.centerComponent}><Spinner/></View>
     if(!orders) return <Message message='No haz hecho ordenes'/>
 
   return (
