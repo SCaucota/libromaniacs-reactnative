@@ -13,8 +13,8 @@ import {globalStyles} from '../globals/styles';
 import { loginSchema } from '../validations/loginSchema.js';
 const Login = () => {
 
-    const [email, setEmail] = useState('lola@gmail.com');
-    const [password, setPassword] = useState('Lolita12');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [loading, setLoading] = useState(false);

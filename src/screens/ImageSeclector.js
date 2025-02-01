@@ -11,8 +11,7 @@ const ImageSeclector = () => {
     const localId = useSelector(state => state.user.localId)
     
     const [trigger] = usePatchImageProfileMutation();
-    const {data: user} = useGetUserQuery({localId});
-    const [image, setImage] = useState(user.image);
+    const [image, setImage] = useState('');
     const navigation = useNavigation();
 
     const pickImage = async (method) => {
