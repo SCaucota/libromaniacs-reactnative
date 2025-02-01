@@ -12,12 +12,6 @@ export const authApi = createApi({
                 body:credentials
             })
         }),
-        checkEmail: builder.query({
-            query: (email) => ({
-                uri:`accounts:get?key=${api_key}&email=${email}`,
-                method: 'GET'
-            })
-        }),
         login: builder.mutation({
             query:(credentials) => ({
                 url: `accounts:signInWithPassword?key=${api_key}`,
@@ -31,5 +25,4 @@ export const authApi = createApi({
 export const {
     useSignUpMutation,
     useLoginMutation,
-    useCheckEmailQuery
 } = authApi
