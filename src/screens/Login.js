@@ -11,8 +11,6 @@ import Spinner from '../components/Spinner';
 import { colors } from '../globals/colors';
 import {globalStyles} from '../globals/styles';
 import { loginSchema } from '../validations/loginSchema.js';
-/* "Lolita12" */
-/* "lola@gmail.com" */
 const Login = () => {
 
     const [email, setEmail] = useState('');
@@ -48,7 +46,6 @@ const Login = () => {
         await deleteSesion()
         await insertSession(user.localId, user.email, user.idToken)
       } catch (error) {
-        console.log(error.path)
         switch(error.path){
           case 'email':
             setEmailError(error.message)

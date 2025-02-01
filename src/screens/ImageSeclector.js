@@ -2,15 +2,17 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import SubmitButton from '../components/SubmitButton'
 import * as ImagePicker from 'expo-image-picker'
-import { usePatchImageProfileMutation } from '../services/user'
+import { useGetUserQuery, usePatchImageProfileMutation } from '../services/user'
 import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 
 const ImageSeclector = () => {
 
     const localId = useSelector(state => state.user.localId)
-    const [image, setImage] = useState('');
+    
     const [trigger] = usePatchImageProfileMutation();
+    const {data: user} = useGetUserQuery({localId});
+    const [image, setImage] = useState(user.image);
     const navigation = useNavigation();
 
     const pickImage = async (method) => {
@@ -39,7 +41,7 @@ const ImageSeclector = () => {
     <View>
       <View style={styles.imgContainer}>
         <Image
-          source={ image ? {uri:image} : require('../../assets/profile-img-default.png')}
+          source={ image ? {uri:image} : require('../../assets/profile-img-default.jpg')}
           resizeMethod='cover'
           style={styles.image}
         />

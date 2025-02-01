@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState } from "react";
 import InputForm from "../components/InputForm";
 import SubmitButton from "../components/SubmitButton";
@@ -30,7 +30,7 @@ const Signup = () => {
     setLoading(true);
     try {
       signupSchema.validateSync({ email, password, confirmPassword });
-      const response = await trigger({ email, password }).unwrap();;
+      const response = await trigger({ email, password });
       const user = {
         email: response.data.email,
         idToken: response.data.idToken,
@@ -39,17 +39,15 @@ const Signup = () => {
       dispatch(setUser(user));
       await deleteSession();
       await insertSession(user.localId, user.email, user.idToken);
+      
     } catch (error) {
-      setLoading(false);
-
-      if (error.data?.error?.message === "EMAIL_EXISTS") {
+      if (error.message === "Cannot read property 'email' of undefined") {
         setPasswordError('')
         setEmailError(
           "Este email ya está registrado. Usa otro o inicia sesión."
         );
         return;
       }
-      
       switch (error.path) {
         case "email":
           setEmailError(error.message);
@@ -67,63 +65,70 @@ const Signup = () => {
           setPasswordError("");
           break;
       }
+    }finally{
+      setLoading(false)
     }
   };
   return (
-    <View style={styles.container}>
-      <Pressable
-        style={styles.backButton}
-        onPress={() => navigation.navigate("Login")}
-      >
-        <Entypo
-          name="arrow-with-circle-left"
-          size={35}
-          color={colors.secondary}
-        />
-        <Text style={styles.btnText}>Volver a Ingresar</Text>
-      </Pressable>
-      <View style={styles.formContainer}>
-        <Text
-          style={[
-            globalStyles.title,
-            { color: colors.primary, paddingTop: 25, paddingBottom: 5 },
-          ]}
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1 }} 
+      keyboardShouldPersistTaps="handled"
+    >
+      <View style={styles.container}>
+        <Pressable
+          style={styles.backButton}
+          onPress={() => navigation.navigate("Login")}
         >
-          Registro
-        </Text>
-        <View style={styles.inputsContainer}>
-          <InputForm
-            label="email"
-            value={email}
-            onChangeText={(t) => setEmail(t)}
-            isSecure={false}
-            error={emailError}
-            icon="mail"
+          <Entypo
+            name="arrow-with-circle-left"
+            size={35}
+            color={colors.secondary}
           />
-          <InputForm
-            label="contraseña"
-            value={password}
-            onChangeText={(t) => setPassword(t)}
-            isSecure={true}
-            error={passwordError}
-            icon="lock"
-          />
-          <InputForm
-            label="confirmar contraseña"
-            value={confirmPassword}
-            onChangeText={(t) => setConfirmPassword(t)}
-            isSecure={true}
-            error={confirmPasswordError}
-            icon="lock"
-          />
+          <Text style={styles.btnText}>Volver a Ingresar</Text>
+        </Pressable>
+        <View style={styles.formContainer}>
+          <Text
+            style={[
+              globalStyles.title,
+              { color: colors.primary, paddingTop: 25, paddingBottom: 5 },
+            ]}
+          >
+            Registro
+          </Text>
+          <View style={styles.inputsContainer}>
+            <InputForm
+              label="email"
+              value={email}
+              onChangeText={(t) => setEmail(t)}
+              isSecure={false}
+              error={emailError}
+              icon="mail"
+            />
+            <InputForm
+              label="contraseña"
+              value={password}
+              onChangeText={(t) => setPassword(t)}
+              isSecure={true}
+              error={passwordError}
+              icon="lock"
+            />
+            <InputForm
+              label="confirmar contraseña"
+              value={confirmPassword}
+              onChangeText={(t) => setConfirmPassword(t)}
+              isSecure={true}
+              error={confirmPasswordError}
+              icon="lock"
+            />
+          </View>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <SubmitButton title="Registrarse" onPress={onSubmit} />
+          )}
         </View>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <SubmitButton title="Registrarse" onPress={onSubmit} />
-        )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

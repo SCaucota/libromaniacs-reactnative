@@ -30,7 +30,7 @@ const Profile = () => {
         </View>
         <View style={styles.imageAddressContainer}>
             <Image
-                source={user?.image ? {uri:user.image} : require('../../assets/profile-img-default.png')}
+                source={user?.image ? {uri:user.image} : require('../../assets/profile-img-default.jpg')}
                 resizeMode='cover'
                 style={styles.image}
             />

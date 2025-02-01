@@ -1,15 +1,29 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
-import React from 'react'
-import { globalStyles } from '../globals/styles'
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native'
+import React, { useState } from 'react'
 import { colors } from '../globals/colors'
 import Entypo from 'react-native-vector-icons/Entypo'
 
 const InputForm = ({label, value, onChangeText, isSecure, error, icon, styleAdded}) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(isSecure);
   return (
     <View>
       <View style={[styles.formContainer, styleAdded]}>
         <Entypo name={icon} size={30} color={colors.primaryClear}/>
-        <TextInput style={styles.input} placeholder={label} placeholderTextColor={colors.primaryClear} vlue={value} onChangeText={onChangeText} secureTextEntry={isSecure}/>
+        <TextInput 
+          style={[styles.input, isSecure && styles.passwordInput]} 
+          placeholder={label} 
+          placeholderTextColor={colors.primaryClear} 
+          value={value} 
+          onChangeText={onChangeText} 
+          secureTextEntry={isSecure && isPasswordVisible}
+        />
+        {
+          isSecure && (
+            <Pressable style={styles.btnEye} onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+              <Entypo name={!isPasswordVisible ? 'eye-with-line' : 'eye'} size={24} color={colors.primaryClear}/>
+            </Pressable>
+          )
+        }
       </View>
       {
         error ? <View><Text style={styles.error}>{error}</Text></View> : null
@@ -38,9 +52,15 @@ const styles = StyleSheet.create({
     gap: 10,
     width: '80%'
   },
+  passwordInput:{
+    width: '60%'
+  },
   error:{
     color: colors.primary,
     paddingTop: 15,
     paddingLeft: 5
+  },
+  btnEye:{
+    marginRight: 20
   }
 })
